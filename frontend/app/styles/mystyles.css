@@ -1,0 +1,63 @@
+body {
+    min-width:350px;
+    align: center;
+    padding-top: 75px;
+    min-height: 800px;
+    background-color: #48CFAD;
+}
+
+.pagination {
+	margin-top: 2px;
+	margin-bottom: 2px;
+}
+
+#header {
+	margin-left: 4%;
+}
+
+.list-group-item {
+	background-color: #37BC98;
+}
+/*
+#week {
+	margin-top: 50px;
+}*/
+
+.navbar ul {
+	display: inline-block;
+}
+
+.navbar-default {
+	background-color: #e3f2fd;
+}
+
+.glyphicon-plus {
+	z-index: 3; position:relative;
+}
+
+.glyphicon-minus{
+	z-index: 3; position:relative;
+}
+
+.rightButtom {
+	 position: fixed; bottom: 0px; right: 0px; 
+	 z-index: 3;
+}
+
+.leftButtom {
+	position: fixed; bottom: 0px; left: 0px; 
+	z-index: 3;
+}
+
+.navbar-text {
+	text-align: center;
+}
+
+.classes {
+	padding-top: 15px;
+}
+
+#schoolname{
+	position: fixed; left: 25%; bottom: 50%;
+
+}
