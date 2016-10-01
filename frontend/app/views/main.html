@@ -9,7 +9,11 @@
         </div>
         <div class="row">
             <div class="col-xs-12" id="results">
-
+                <div class = "row" ng-repeat = "x in recommended_list">
+                    <div class="col-xs-10 col-sm-11">
+                        <small>{{x}</small>
+                    </div>
+                </div>
                 <div ng-show="rateLimitError">
                     Rate limit reached. You are making too many requests.
                 </div>

@@ -24,18 +24,30 @@ angular.module('recommenderApp')
                     $scope.connectedTwitter = true;
                 });
 
-                twitterService.getLatestTweets(20).then(function(data) {
-                    tweet_list = angular.toJson(data);
-                    $http({
-                        url: ,//todo
-                        method: "GET",
-                        data: {tweet: tweet_list}
-                    }).then(function success(response) {
-                        $scope.recommended_users = response.data;
-                    }, function error(response) {
-                        $scope.recommended_users = response.statusText;
-                    })
-                }
+                twitterService.getLatestTweets().then(function(data) {
+                    var user_tweet;
+                    var tweet_list = [];
+                    for(var i = 0; i < data.length; i++) {
+                        tweet_list[i] = data[i]["text"]
+                    }
+                    twitterService.getUserInfo().then(function(data) {
+                            var user_name = data["name"];
+                            var user_tweet = {username: user_name, tweet: tweet_list}
+                            user_tweet = angular.toJson(user_tweet)
+                            // $http({
+                            //     url: ,//todo
+                            //     method: "GET",
+                            //     data: {usertweet: user_tweet}
+                            // }).then(function success(response) {
+                            //         $scope.recommended_users = response.data;
+                            //     }, function error(response) {
+                            //         $scope.recommended_users = response.statusText;
+                            // })
+                            console.log(user_tweet);
+                    });
+
+
+                })
 
             } else {
 

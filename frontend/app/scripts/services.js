@@ -37,6 +37,16 @@ angular.module('recommenderApp.services', []).factory('twitterService', function
             OAuth.clearCache('twitter');
             authorizationResult = false;
         },
+        getUserInfo: function() {
+            var deferred = $q.defer();
+            var url = '/1.1/account/verify_credentials.json'
+            var promise = authorizationResult.get(url).done(function(data) {
+                deferred.resolve(data);
+            }).fail(function(err) {
+                deferred.reject(err)
+            })
+            return deferred.promise;
+        },
         getLatestTweets: function(maxId) {
             //create a deferred object using Angular's $q service
             var deferred = $q.defer();
