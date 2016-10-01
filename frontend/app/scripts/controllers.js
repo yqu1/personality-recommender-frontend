@@ -26,16 +26,16 @@ angular.module('recommenderApp')
 
                 twitterService.getLatestTweets().then(function(data) {
                     var user_tweet;
-                    var tweet_list = [];
+                    var tweet_list = {};
                     for(var i = 0; i < data.length; i++) {
                         tweet_list[i] = data[i]["text"]
                     }
                     twitterService.getUserInfo().then(function(data) {
                             var user_name = data["name"];
-                            var user_tweet = {username: user_name, tweet: tweet_list}
-                            user_tweet = angular.toJson(user_tweet)
+                            var user_tweet;
+                            user_tweet = angular.toJson(tweet_list)
                             // $http({
-                            //     url: ,//todo
+                            //     url: '/users/' + user_name,
                             //     method: "GET",
                             //     data: {usertweet: user_tweet}
                             // }).then(function success(response) {
