@@ -1,6 +1,6 @@
 'use strict'
 angular.module('recommenderApp')
-.controller('recommenderController', function($scope, $q, twitterService) {
+.controller('recommenderController', function($scope, $http, $q, twitterService) {
     $scope.tweets = []; //array of tweets
 
     twitterService.initialize();
@@ -20,10 +20,23 @@ angular.module('recommenderApp')
             if (twitterService.isReady()) {
                 //if the authorization is successful, hide the connect button and display the tweets
                 $('#connectButton').fadeOut(function() {
-                    $('#getTimelineButton, #signOut').fadeIn();
-                    $scope.refreshTimeline();
+                    $('#signOut').fadeIn();
                     $scope.connectedTwitter = true;
                 });
+
+                twitterService.getLatestTweets(20).then(function(data) {
+                    tweet_list = angular.toJson(data);
+                    $http({
+                        url: ,//todo
+                        method: "GET",
+                        data: {tweet: tweet_list}
+                    }).then(function success(response) {
+                        $scope.recommended_users = response.data;
+                    }, function error(response) {
+                        $scope.recommended_users = response.statusText;
+                    })
+                }
+
             } else {
 
             }
@@ -34,7 +47,7 @@ angular.module('recommenderApp')
     $scope.signOut = function() {
         twitterService.clearCache();
         $scope.tweets.length = 0;
-        $('#getTimelineButton, #signOut').fadeOut(function() {
+        $('#signOut').fadeOut(function() {
             $('#connectButton').fadeIn();
             $scope.$apply(function() {
                 $scope.connectedTwitter = false
@@ -45,8 +58,7 @@ angular.module('recommenderApp')
     //if the user is a returning user, hide the sign in button and display the tweets
     if (twitterService.isReady()) {
         $('#connectButton').hide();
-        $('#getTimelineButton, #signOut').show();
+        $('#signOut').show();
         $scope.connectedTwitter = true;
-        $scope.refreshTimeline();
     }
 });
