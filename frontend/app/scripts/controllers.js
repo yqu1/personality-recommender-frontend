@@ -26,23 +26,36 @@ angular.module('recommenderApp')
 
                 twitterService.getLatestTweets().then(function(data) {
                     var user_tweet;
-                    var tweet_list = {};
-                    for(var i = 0; i < data.length; i++) {
-                        tweet_list[i] = data[i]["text"]
-                    }
+                    var tweet_list = [];
+                    user_tweet = data;
+                    // for(var i = 0; i < data.length; i++) {
+                    //     tweet_list[i] = data[i]["text"]
+                    // }
                     twitterService.getUserInfo().then(function(data) {
                             var user_name = data["name"];
-                            var user_tweet;
+                            for (var i = 0; i < user_tweet.length; i++) {
+                                tweet_list.push({
+                                    "content": user_tweet[i]["text"],
+                                    "contenttype": "text/plain",
+                                    "created": 1447639154000,
+                                    "id": user_tweet[i]["id"],
+                                    "language": "en",
+                                    "sourceid": "Twitter API",
+                                    "userid": user_name
+                                })
+                            }
                             user_tweet = angular.toJson(tweet_list)
-                            // $http({
-                            //     url: '/users/' + user_name,
-                            //     method: "GET",
-                            //     data: {usertweet: user_tweet}
-                            // }).then(function success(response) {
-                            //         $scope.recommended_users = response.data;
-                            //     }, function error(response) {
-                            //         $scope.recommended_users = response.statusText;
-                            // })
+                            $.ajax({
+                                url: 'http://localhost:5000/users/' + user_name,
+                                type: "get",
+                                data: {"usertweet": user_tweet}, 
+                                success: function(response) {
+                                    $scope.recommended_users = response.data;
+                                },
+                                error: function(xhr, err, errmsg) {
+                                    console.log(errmsg)
+                                }
+                            })
                             console.log(user_tweet);
                     });
 
