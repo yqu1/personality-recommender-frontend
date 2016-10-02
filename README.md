@@ -1,4 +1,4 @@
-# Personality Recommender for Twitter - Backend
+# Personality Recommender for Twitter - Frontend
 Recommends Twitter posts based on user's personality.
 
 ## Authors
