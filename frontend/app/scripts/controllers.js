@@ -50,13 +50,14 @@ angular.module('recommenderApp')
                                 type: "get",
                                 data: {"usertweet": user_tweet}, 
                                 success: function(response) {
-                                    $scope.recommended_users = response.data;
+                                    $scope.$apply(function() {
+                                        $scope.recommended_users = response["rec"];
+                                    })
                                 },
                                 error: function(xhr, err, errmsg) {
                                     console.log(errmsg)
                                 }
                             })
-                            console.log(user_tweet);
                     });
 
 

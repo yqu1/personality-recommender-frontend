@@ -9,9 +9,10 @@
         </div>
         <div class="row">
             <div class="col-xs-12" id="results">
+                <p>Your Recommended Users</p>
                 <div class = "row" ng-repeat = "x in recommended_users">
                     <div class="col-xs-10 col-sm-11">
-                        <small>{{x}</small>
+                        <small>{{x}}</small>
                     </div>
                 </div>
                 <div ng-show="rateLimitError">
